@@ -1,0 +1,13 @@
+package com.klaus.interview.commonjpaconfig;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class CommonJpaConfigApplicationTests {
+
+    @Test
+    void contextLoads() {
+    }
+
+}

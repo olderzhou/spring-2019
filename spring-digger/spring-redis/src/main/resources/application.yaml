@@ -1,0 +1,17 @@
+server:
+  port: 9090
+
+spring:
+  application:
+    name: spring-redis
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 4
+    jedis:
+      pool:
+        max-active: 80
+        min-idle: 0
+        max-idle: 80
+        max-wait: -1ms
