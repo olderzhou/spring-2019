@@ -1,17 +1,35 @@
-server:
-  port: 9090
-
 spring:
   application:
     name: spring-redis
+  profiles:
+    active: node1
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
 
-  redis:
-    host: 127.0.0.1
-    port: 6379
-    database: 4
-    jedis:
-      pool:
-        max-active: 80
-        min-idle: 0
-        max-idle: 80
-        max-wait: -1ms
+
+swagger:
+  enabled: true
+  title: ${spring.application.name}
+  description: redis深入研究
+  version: 1.0.0
+  license:
+  licenseUrl:
+  termsOfServiceUrl:
+  contact:
+    name: ${AUTHOR_NAME:klaus}
+    url:
+    email: ${AUTHOR_EMAIL:niklausjulie@gmail.com}
+  base-package: com.klaus.interview.springredis.controller
+  # 公共参数，鉴权token
+  authorization:
+    key-name: Authorization
+#  global-operation-parameters[0]:
+#    name: Authorization
+#    description: 鉴权token
+#    modelRef: string
+#    parameterType: header
+#    # 公共参数写成requierd, 对于不需要登录的接口随便写一个字符串即可
+#    required: false
