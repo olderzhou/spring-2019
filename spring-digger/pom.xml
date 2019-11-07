@@ -46,6 +46,7 @@
 
     <modules>
         <module>spring-redis</module>
+        <module>spring-jpa-code-generatoor</module>
         <module>common</module>
         <module>base-model</module>
     </modules>

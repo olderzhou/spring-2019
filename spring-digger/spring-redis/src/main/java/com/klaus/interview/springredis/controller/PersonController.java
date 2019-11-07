@@ -1,9 +1,8 @@
 package com.klaus.interview.springredis.controller;
 
 
-import com.klaus.interview.basemodel.po.Person;
+import com.klaus.interview.basemodel.school.po.Person;
 import com.klaus.interview.springredis.service.PersonService;
-import com.klaus.interview.springredis.vo.PersonBirthForm;
 import com.klaus.interview.springredis.vo.PersonForm;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

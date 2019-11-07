@@ -73,7 +73,7 @@ Process finished with exit code 0
 ```
 解决方案
 添加po扫描路径
-@EntityScan(basePackages = {"com.klaus.interview.basemodel.po"})
+@EntityScan(basePackages = {"com.klaus.interview.basemodel.school.po"})
 ```
 
 -

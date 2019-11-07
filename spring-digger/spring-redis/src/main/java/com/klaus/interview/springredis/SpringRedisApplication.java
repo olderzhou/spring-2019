@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication(scanBasePackages = {"com.klaus.interview.springredis", "com.klaus.interview.commonbase.config"})
 @EnableJpaAuditing
-@EntityScan(basePackages = {"com.klaus.interview.basemodel.po"})
+@EntityScan(basePackages = {"com.klaus.interview.basemodel.school.po"})
 @EnableSwagger2Doc
 public class SpringRedisApplication {
 

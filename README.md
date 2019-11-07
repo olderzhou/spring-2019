@@ -3,5 +3,5 @@ this is a repo prepare-2019's interview
 
 
 
-![](./doc/redis.md)
+![](doc/spring-redis.md)
 
