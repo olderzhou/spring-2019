@@ -51,6 +51,16 @@
         <module>base-model</module>
     </modules>
 
+    <developers>
+
+        <developer>
+            <name>klaus miaekslon</name>
+            <email>niklausjulie@gmail.com</email>
+            <timezone>China SZ</timezone>
+            <organization>VIVIAN-KLAUS</organization>
+        </developer>
+    </developers>
+
 
 
     <dependencyManagement>
@@ -85,5 +95,30 @@
         </dependencies>
 
     </dependencyManagement>
+
+    <repositories>
+        <repository>
+            <id>aliyun</id>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>local-nexus</id>
+            <url>http://localhost:8081/nexus/repository/maven-public/</url>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>local-nexus</id>
+            <name>Releases Repository</name>
+            <url>http://localhost:8081/nexus/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>local-nexus</id>
+            <name>Snapshot Repository</name>
+            <url>http://localhost:8081/nexus/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
 
 </project>

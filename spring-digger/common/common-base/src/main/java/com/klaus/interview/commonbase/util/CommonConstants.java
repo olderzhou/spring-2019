@@ -50,8 +50,8 @@ public class CommonConstants {
 
     public enum DataPattern {
         YYYY("yyyy"),
-        YYYY_MM_DD("yyyy-MM-dd"),
-        YYYY_MM_DD_HH_MM_SS("yyyy-MM-dd hh:mm:ss"),
+        YYYY_MM_DD("yyyy-MM-words"),
+        YYYY_MM_DD_HH_MM_SS("yyyy-MM-words hh:mm:ss"),
         YYYYMMDD("yyyyMMdd"),
         YYYYMMDDHH("yyyyMMddhh"),
         YYYYMMDDHHMM("yyyyMMddhhmm"),
