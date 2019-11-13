@@ -1,7 +1,7 @@
 package com.klaus.interview.springredis.vo;
 
-import com.klaus.interview.basemodel.school.po.Person;
-import com.klaus.interview.commonbase.po.form.BaseForm;
+import com.klaus.interview.basemodel.base.form.BaseForm;
+import com.klaus.interview.basemodel.model.school.po.Person;
 import lombok.Data;
 
 import java.util.Date;

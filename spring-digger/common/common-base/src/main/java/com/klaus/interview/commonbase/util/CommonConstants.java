@@ -46,6 +46,20 @@ public class CommonConstants {
         }
     }
 
+    public enum  PageDefault {
+        START_PAGE(0), START_SIZE(10);
+        private Integer  value;
+        public void setValue(Integer  value) {
+            this.value = value;
+        }
+        public Integer getValue() {
+            return this.value;
+        }
+        PageDefault(Integer  value) {
+            this.value = value;
+        }
+    }
+
 
 
     public enum DataPattern {

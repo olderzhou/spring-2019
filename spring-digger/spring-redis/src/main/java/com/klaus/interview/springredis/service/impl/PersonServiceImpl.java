@@ -1,7 +1,9 @@
 package com.klaus.interview.springredis.service.impl;
 
-import com.klaus.interview.basemodel.school.po.Person;
+import com.klaus.interview.basemodel.model.school.po.Person;
+import com.klaus.interview.basemodel.model.school.po.QPerson;
 import com.klaus.interview.springredis.repo.PersonRepo;
+import com.klaus.interview.springredis.service.JpaBaseService;
 import com.klaus.interview.springredis.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,9 +11,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 
+import static com.klaus.interview.basemodel.model.school.po.QPerson.person;
+
 @Service
-//@AllArgsConstructor
-public class PersonServiceImpl implements PersonService {
+public class PersonServiceImpl extends JpaBaseService implements PersonService {
 
     @Autowired
     private PersonRepo personRepo;
@@ -24,7 +27,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public void die() {
-
+        jpaQueryFactory.select(person).from(person).where(person.name.eq("klaus")).fetch();
     }
 
     @Override

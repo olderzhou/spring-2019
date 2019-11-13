@@ -75,12 +75,6 @@
 
             <dependency>
                 <groupId>com.klaus.interview</groupId>
-                <artifactId>common-jpa-config</artifactId>
-                <version>${klaus.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.klaus.interview</groupId>
                 <artifactId>base-model</artifactId>
                 <version>${klaus.version}</version>
             </dependency>

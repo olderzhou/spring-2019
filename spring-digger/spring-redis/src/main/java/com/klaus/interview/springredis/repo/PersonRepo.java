@@ -1,6 +1,6 @@
 package com.klaus.interview.springredis.repo;
 
-import com.klaus.interview.basemodel.school.po.Person;
+import com.klaus.interview.basemodel.model.school.po.Person;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.klaus.interview.springredis.controller;
 
 
-import com.klaus.interview.basemodel.school.po.Person;
+import com.klaus.interview.basemodel.model.school.po.Person;
 import com.klaus.interview.springredis.service.PersonService;
 import com.klaus.interview.springredis.vo.PersonForm;
 import io.swagger.annotations.Api;
@@ -30,6 +30,7 @@ public class PersonController {
     @GetMapping
     @ApiOperation(value = "list", notes = "mark a person list ticket")
     public ResponseEntity list() {
+        personService.die();
         return ResponseEntity.ok().body(personService.findAll());
     }
 

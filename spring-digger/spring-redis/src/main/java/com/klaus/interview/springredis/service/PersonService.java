@@ -1,6 +1,6 @@
 package com.klaus.interview.springredis.service;
 
-import com.klaus.interview.basemodel.school.po.Person;
+import com.klaus.interview.basemodel.model.school.po.Person;
 
 import java.util.List;
 
