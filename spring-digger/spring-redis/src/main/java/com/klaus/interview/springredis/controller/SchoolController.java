@@ -63,9 +63,7 @@ public class SchoolController {
                                  }) Pageable pageable,
                                  @RequestBody SchoolParamForm schoolParamForm) {
         log.info("school is :{}, pageable is :{}", schoolParamForm, pageable);
-
-        schoolService.findAll();
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(schoolService.findAll(schoolParamForm, pageable));
     }
 
 

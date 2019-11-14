@@ -3,6 +3,7 @@ package com.klaus.interview.springredis.service;
 import com.klaus.interview.basemodel.model.school.po.School;
 import com.klaus.interview.basemodel.model.school.po.Student;
 import com.klaus.interview.springredis.vo.param.SchoolParamForm;
+import com.klaus.interview.springredis.vo.vo.SchoolVo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -11,7 +12,7 @@ import java.util.List;
 public interface SchoolService {
 
     public List<School> findAll();
-    public List<School> findAll(SchoolParamForm schoolParamForm, Pageable pageable);
+    public Page<SchoolVo> findAll(SchoolParamForm schoolParamForm, Pageable pageable);
     public School findByName(String name);
     public Page<School> findByNameAndCode(String name, String code);
     public School initSchool(School school);

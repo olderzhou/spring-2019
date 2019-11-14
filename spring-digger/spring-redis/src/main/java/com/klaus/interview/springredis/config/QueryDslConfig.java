@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.EntityManager;
 
-//@EnableQueryDsl
 @Configuration
 public class QueryDslConfig {
 
