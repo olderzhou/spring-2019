@@ -24,6 +24,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.klaus.interview.basemodel.model.school.po.QSchool.school;
@@ -44,16 +45,20 @@ public class SchoolServiceImpl extends JpaBaseService implements SchoolService {
     @Override
     public Page<SchoolVo> findAll(SchoolParamForm schoolParamForm, Pageable pageable) {
         JPAQuery<SchoolVo> jpaQuery = jpaQueryFactory.select(Projections.bean(SchoolVo.class, school.name,school.schoolCode)).from(school);
+        List<Predicate> predicates = new ArrayList<>();
         if (schoolParamForm!=null) {
             if (!StringUtils.isEmpty(schoolParamForm.getName())) {
-                jpaQuery.where(school.name.like(schoolParamForm.getName()));
+                //jpaQuery.where(school.name.like(schoolParamForm.getName()));
+                predicates.add(school.name.like(schoolParamForm.getName()+"%"));
             }
             if (!StringUtils.isEmpty(schoolParamForm.getSchoolCode())) {
-                jpaQuery.where(school.schoolCode.eq(schoolParamForm.getSchoolCode()));
+                //jpaQuery.where(school.schoolCode.eq(schoolParamForm.getSchoolCode()));
+                predicates.add(school.schoolCode.eq(schoolParamForm.getSchoolCode()));
             }
         }
+        jpaQuery.where(predicates.toArray(new Predicate[predicates.size()]));
         Page<SchoolVo> page = PageExecution.getPage(jpaQuery,pageable);
-        page.getContent().forEach(i -> log.info("data is :{}", i));
+        //page.getContent().forEach(i -> log.info("data is :{}", i));
         return page;
     }
 

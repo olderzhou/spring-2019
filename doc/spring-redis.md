@@ -78,6 +78,9 @@ win 10 环境
 - 分布式锁
 ```
 https://blog.csdn.net/Ethan_199402/article/details/102575130
+https://www.jianshu.com/p/47fd7f86c848
+
+
 
 
 

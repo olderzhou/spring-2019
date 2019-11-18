@@ -1,4 +1,4 @@
-package com.klaus.interview.springredis.repo;
+package com.klaus.interview.springredis;
 
 import lombok.extern.slf4j.Slf4j;
 
