@@ -1,5 +1,14 @@
 ## 问题列表
 
+
+
+- RedisTemplate执行lua脚本抛出异常IllegalStateException
+```
+参考文档描述https://cloud.tencent.com/developer/article/1526390
+实际原因是由于返回类型不对，导致数据转换异常
+ReturnType 的默认值是 ReturnType.STATUS
+而ReturnType.INTEGER 对应的是java的LONG类型
+```
 - java.lang.ArrayStoreException: sun.reflect.annotation.TypeNotPresentExceptionProxy
 
 ```

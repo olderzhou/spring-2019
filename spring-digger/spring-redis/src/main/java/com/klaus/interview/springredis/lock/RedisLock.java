@@ -1,56 +1,47 @@
 package com.klaus.interview.springredis.lock;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.stereotype.Component;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.params.SetParams;
 
 import java.util.Collections;
+import java.util.concurrent.TimeUnit;
 
+@Slf4j
 @Component
 public class RedisLock {
 
     private String lock_key = "redis_lock"; //锁键
 
-    protected long internalLockLeaseTime = 30000;//锁过期时间
-
-    private long timeout = 60000; //获取锁的超时时间
-
-
-    //SET命令的参数
-    SetParams params = SetParams.setParams().nx().px(internalLockLeaseTime);
-
-    private static final String LOCK_SUCCESS = "OK";
-
-    @Autowired
-    private JedisPool jedisPool;
-
     @Autowired
     private RedisTemplate redisTemplate;
 
+    private static final Long RELEASE_LOCK_SUCCESS_RESULT = 1L;
     /**
      * 加锁
      * @param id
      * @return
      */
-    public boolean lock(String id){
-        Jedis jedis = jedisPool.getResource();
+    public boolean lock(String id, long timeout){
         Long start = System.currentTimeMillis();
         try {
             while (true) {
-                String result = jedis.set(lock_key, id, params);
-                if(LOCK_SUCCESS.equals(result)) {
+                log.info("trying to get lock");
+                boolean result = redisTemplate.opsForValue().setIfAbsent(lock_key, id, 1, TimeUnit.MINUTES);
+                if (result) {
+                    log.info("get lock success!!!");
                     return true;
                 }
                 if (System.currentTimeMillis() - start >= timeout)
                     return false;
-                //return false;
+                Thread.sleep(1000L);
             }
-        } finally {
-            jedis.close();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+        return false;
     }
 
 
@@ -60,22 +51,11 @@ public class RedisLock {
      * @return
      */
     public boolean unlock(String id){
-        Jedis jedis = jedisPool.getResource();
-        String script = "if redis.call('get',KEYS[1]) == ARGV[1] then" +
-                        "   return redis.call('del',KEYS[1]) " +
-                        "else" +
-                        "   return 0 " +
-                        "end";
-        try {
-            Object result = jedis.eval(script, Collections.singletonList(lock_key),
-                    Collections.singletonList(id));
-            if("1".equals(result.toString())){
-                return true;
-            }
-            return false;
-        }finally {
-            jedis.close();
-        }
+        String script = "if redis.call('get',KEYS[1]) == ARGV[1] then return redis.call('del',KEYS[1]) else return 0 end";
+        boolean result = redisTemplate.execute(RedisScript.of(script, Long.class),Collections.singletonList(lock_key), id)
+                .equals(RELEASE_LOCK_SUCCESS_RESULT);
+        log.info("releasing lock");
+        return result;
     }
 
 

@@ -1,6 +1,7 @@
 package com.klaus.interview.springredis.config;
 
 
+import com.klaus.interview.springredis.lock.RedisLock;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
@@ -15,6 +16,8 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 @EnableAsync
 public class ScheduleConfig {
 
+    @Autowired
+    private RedisLock redisLock;
 
     @Configuration
     public class SchedulerConfiguration implements SchedulingConfigurer {
@@ -71,7 +74,7 @@ public class ScheduleConfig {
 //    }
 
 
-    @Scheduled(cron = "0/30 * * * * ?")
+//    @Scheduled(cron = "0/30 * * * * ?")
 //    @Async
     public void print3() {
         try {
@@ -83,10 +86,18 @@ public class ScheduleConfig {
     }
 
 
-    @Scheduled(cron = "0/20 * * * * ?")
+    @Scheduled(cron = "0/10 * * * * ?")
 //    @Async
     public void print4() {
-        log.info("server info is 4 : {}, {}, {}, {}", Thread.currentThread().getName(), serverProperties.getServlet().getContextPath(), serverProperties.getPort(), serverProperties.getServlet().getApplicationDisplayName());
+        if (redisLock.lock("4", 5000)) {
+            try {
+                Thread.sleep(1000L);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            log.info("server info is 4 : {}, {}, {}, {}", Thread.currentThread().getName(), serverProperties.getServlet().getContextPath(), serverProperties.getPort(), serverProperties.getServlet().getApplicationDisplayName());
+            redisLock.unlock("4");
+        }
     }
 
 
