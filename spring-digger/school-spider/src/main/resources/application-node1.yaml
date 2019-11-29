@@ -1,5 +1,46 @@
 
 server:
-  port: 9080
+  port: ${SERVER_PORT:9080}
   servlet:
-    context-path: /school-spider
+    context-path: ${CONTEXT_PATH:/school-spider}
+
+# spider config
+spider:
+  thread:
+    amount: 10
+
+spring:
+  kafka:
+    topic: klaus
+    bootstrap-servers: 127.0.0.1:9092
+    consumer:
+      group-id: test-demo
+      #      key-deserializer: org.springframework.kafka.support.serializer.StringDeserializer
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      fetch-min-size: 20
+      fetch-max-wait: 6000
+      enable-auto-commit: true
+      max-poll-records: 100
+      auto-commit-interval: 10
+      auto-offset-reset: earliest
+      #      client-id: com.klaus
+      properties:
+        spring.json.trusted.packages: com.klaus.demospringes.doc
+    producer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      batch-size: 10
+      retries: 2
+      acks: -1
+    #    template:
+    #      default-topic: graph_ccb_dev.*
+    listener:
+      type: batch
+      ack-mode: batch
+      ack-time: 60
+      poll-timeout: 3000
+      #      client-id: com.klaus
+      concurrency: 1
+  #    admin:
+  #      properties:
