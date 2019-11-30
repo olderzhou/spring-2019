@@ -85,8 +85,16 @@ Process finished with exit code 0
 @EntityScan(basePackages = {"com.klaus.interview.basemodel.model.school.po"})
 ```
 
--
--
+- Kafka SerializationException  xxx is not in the trusted packages
+```
+解决方案
+spring:
+  kafka:
+    consumer:
+      properties:
+        spring.json.trusted.packages: com.klaus.demospringes.doc,com.interview.schoolspider.spider.model
+注意，当有多个包的时候，逗号之间务必不能有空格        
+```
 
 
 

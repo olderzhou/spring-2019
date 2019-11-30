@@ -12,10 +12,10 @@ spider:
 spring:
   kafka:
     topic: klaus
-    bootstrap-servers: 127.0.0.1:9092
+    bootstrap-servers: 192.168.43.235:9092
     consumer:
-      group-id: test-demo
-      #      key-deserializer: org.springframework.kafka.support.serializer.StringDeserializer
+      #group-id: test-demo
+      #key-deserializer: org.springframework.kafka.support.serializer.StringDeserializer
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       fetch-min-size: 20
@@ -23,16 +23,15 @@ spring:
       enable-auto-commit: true
       max-poll-records: 100
       auto-commit-interval: 10
-      auto-offset-reset: earliest
-      #      client-id: com.klaus
+      auto-offset-reset: latest
       properties:
-        spring.json.trusted.packages: com.klaus.demospringes.doc
+        spring.json.trusted.packages: com.test,com.interview.schoolspider.spider.model
     producer:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       batch-size: 10
       retries: 2
-      acks: -1
+      acks: 0
     #    template:
     #      default-topic: graph_ccb_dev.*
     listener:
