@@ -6,18 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface PersonRepo extends JpaRepository<Person, Long> {
-    public List<Person> findByName(String name);
+    List<Person> findByName(String name);
 
-    public Person findPersonByName(String name);
-    public Person findPersonByMobile(String mobile);
-    public Person findPersonByOpenID(String openID);
-
-
-
-
-
-
-
-
+    Person findPersonByName(String name);
+    Person findPersonByMobile(String mobile);
+    Person findPersonByOpenID(String openID);
 
 }
