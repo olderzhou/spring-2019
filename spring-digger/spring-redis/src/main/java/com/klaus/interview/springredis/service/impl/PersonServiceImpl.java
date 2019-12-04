@@ -1,7 +1,6 @@
 package com.klaus.interview.springredis.service.impl;
 
 import com.klaus.interview.basemodel.model.school.po.Person;
-import com.klaus.interview.basemodel.model.school.po.QPerson;
 import com.klaus.interview.springredis.repo.PersonRepo;
 import com.klaus.interview.springredis.service.JpaBaseService;
 import com.klaus.interview.springredis.service.PersonService;
@@ -15,6 +14,7 @@ import static com.klaus.interview.basemodel.model.school.po.QPerson.person;
 
 @Service
 public class PersonServiceImpl extends JpaBaseService implements PersonService {
+
 
     @Autowired
     private PersonRepo personRepo;
@@ -50,4 +50,5 @@ public class PersonServiceImpl extends JpaBaseService implements PersonService {
     public Person findByOpenID(String openID) {
         return personRepo.findPersonByOpenID(openID);
     }
+
 }
