@@ -93,7 +93,19 @@ spring:
     consumer:
       properties:
         spring.json.trusted.packages: com.klaus.demospringes.doc,com.interview.schoolspider.spider.model
-注意，当有多个包的时候，逗号之间务必不能有空格        
+注意，当有多个包的时候，逗号之间务必不能有空格     
+
+        security:
+          protocol: SASL_PLAINTEXT
+        kerberos:
+          domain:
+            name: hadoop.hadoop.com
+
+        sasl:
+          kerberos:
+            service:
+              name: kafka   
+添加认证相关的配置              
 ```
 
 

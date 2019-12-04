@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: register-eureka
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${APPLICATION_HOST:fun-nearby}:30001/eureka/,http://${APPLICATION_HOST:fun-nearby}:30002/eureka/,http://${APPLICATION_HOST:fun-nearby}:30003/eureka/
+  instance:
+    hostname: fun-nearby
+    appname: ${spring.application.name}

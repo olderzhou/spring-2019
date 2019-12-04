@@ -54,14 +54,27 @@ public class SchoolSpiderApplication {
 //        log.info("receive4 data is :{}", record);
 //    }
 
-    @KafkaListener(id = "test3", topics = {"schoo-topic-2","school-topic-1","school-topic"})
+    @KafkaListener(id = "test3", topics = {"test-topic", "test-topic-1", "test-topic-a"})
     public void receive5(List<ConsumerRecord<String, SchoolVo>> record) {
-        log.info("receive5 data is :{}", record);
+        record.stream().forEach(i -> {
+        log.info("receive5 data is :{}, topic is:{}", i, i.topic());
+
+        });
     }
-//    @KafkaListener(groupId = "test6", topicPattern = "schoo-topic-*")
-//    public void receive6(List<ConsumerRecord<String, SchoolVo>> record) {
-//        log.info("receive6 data is :{}", record);
-//    }
+    @KafkaListener(groupId = "test6", topicPattern = "test-topic.*")
+    public void receive6(List<ConsumerRecord<String, SchoolVo>> record) {
+        record.stream().forEach(i -> {
+            log.info("receive6 data is :{}, topic is:{}", i, i.topic());
+
+        });
+    }
+
+    @KafkaListener(groupId = "test7", topicPattern = "school-topic")
+    public void receive7(List<ConsumerRecord<String, SchoolVo>> record) {
+        record.stream().forEach(i -> {
+            log.info("receive7 data is :{}, topic is:{}", i, i.topic());
+        });
+    }
 
 
 
