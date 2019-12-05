@@ -1,0 +1,17 @@
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://node1:30001/eureka/,http://node1:30002/eureka/,http://node1:30003/eureka/
+  instance:
+    hostname: node1
+    appname: ${spring.application.name}
+spring:
+  application:
+    name: demo-eureka-provider
+  profiles:
+    active: node1
+
+
+
+

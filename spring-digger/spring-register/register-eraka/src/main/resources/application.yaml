@@ -1,11 +1,15 @@
 spring:
   application:
     name: register-eureka
+  profiles:
+    active: node1
 
 eureka:
   client:
     service-url:
-      defaultZone: http://${APPLICATION_HOST:fun-nearby}:30001/eureka/,http://${APPLICATION_HOST:fun-nearby}:30002/eureka/,http://${APPLICATION_HOST:fun-nearby}:30003/eureka/
+      defaultZone: http://${APPLICATION_HOST:node1}:30001/eureka/,http://${APPLICATION_HOST:node1}:30002/eureka/
+    register-with-eureka: true
+    fetch-registry: true
   instance:
-    hostname: fun-nearby
+    hostname: node1
     appname: ${spring.application.name}

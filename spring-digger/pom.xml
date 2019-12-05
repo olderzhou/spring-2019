@@ -96,6 +96,11 @@
                 <version>${klaus.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.klaus.interview</groupId>
+                <artifactId>demo-api</artifactId>
+                <version>${klaus.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>com.spring4all</groupId>
