@@ -1,0 +1,7 @@
+server:
+  port: 40001
+
+logging:
+  level:
+    org.elasticsearch.client: debug
+  file: ${spring.application.name}.log

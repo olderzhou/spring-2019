@@ -1,10 +1,10 @@
-package com.klaus.interview.demoapi;
+package com.klaus.interview.springelasticsearch;
 
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DemoApiApplicationTests {
+class SpringElasticsearchApplicationTests {
 
     @Test
     void contextLoads() {

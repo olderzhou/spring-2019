@@ -58,6 +58,7 @@
         <module>base-model</module>
         <module>school-spider</module>
         <module>spring-register</module>
+        <module>spring-elasticsearch</module>
     </modules>
 
     <developers>
