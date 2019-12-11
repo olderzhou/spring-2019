@@ -24,7 +24,7 @@ public class ApiRequestMappingHandlerMapping extends RequestMappingHandlerMappin
             return null;
         }
         ApiVersion apiVersion = clazz.getAnnotation(ApiVersion.class);
-        return apiVersion == null ? new ApiVersionCondition(1) : new ApiVersionCondition(apiVersion.value());
+        return  new ApiVersionCondition(apiVersion == null ? 1 : apiVersion.value());
     }
 
     @Override
