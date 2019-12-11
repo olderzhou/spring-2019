@@ -40,4 +40,4 @@ swagger:
 #    parameterType: header
 #    # 公共参数写成requierd, 对于不需要登录的接口随便写一个字符串即可
 #    required: false
-debug: true
+debug: false

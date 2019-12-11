@@ -15,6 +15,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import javax.annotation.Generated;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -52,4 +53,7 @@ public class SchoolPo {
     @Field(type = FieldType.Keyword)
     @ApiModelProperty(name = "校长",example = "klaus")
     private String chairman;
+
+//    @Field(type = FieldType.Attachment.)
+    private List<String> labels;
 }
