@@ -25,6 +25,7 @@ import java.util.List;
 @ApiModel(value = "学校", description = "school entity description")
 public class SchoolPo {
     @Id()
+    @Field(type = FieldType.Long)
     @ApiModelProperty(name = "主键",example = "1")
     private String id;
 
@@ -54,6 +55,8 @@ public class SchoolPo {
     @ApiModelProperty(name = "校长",example = "klaus")
     private String chairman;
 
-//    @Field(type = FieldType.Attachment.)
+    @Field(type = FieldType.Nested)
     private List<String> labels;
+
+
 }
