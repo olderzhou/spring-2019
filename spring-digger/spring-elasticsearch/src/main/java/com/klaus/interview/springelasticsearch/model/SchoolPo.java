@@ -20,14 +20,14 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(indexName = "spring-elastic-test", type = "school", createIndex = false)
+@Document(indexName = "spring-elastic-test.school", type = "school", createIndex = false)
 @ToString
 @ApiModel(value = "学校", description = "school entity description")
 public class SchoolPo {
     @Id()
     @Field(type = FieldType.Long)
     @ApiModelProperty(name = "主键",example = "1")
-    private String id;
+    private Long id;
 
     @Field(analyzer="ik_max_word", type = FieldType.Text)
     @ApiModelProperty(name = "名称",example = "klaus")
@@ -55,8 +55,6 @@ public class SchoolPo {
     @ApiModelProperty(name = "校长",example = "klaus")
     private String chairman;
 
-    @Field(type = FieldType.Nested)
-    private List<String> labels;
 
 
 }

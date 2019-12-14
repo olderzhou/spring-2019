@@ -2,6 +2,38 @@
 
 
 
+- HttpHostConnectException: Connect to localhost:2375 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1]
+
+[参考方案](https://blog.csdn.net/qq_22313643/article/details/82901296)
+```
+1. win10 环境可以直接通过图形化界面修改
+
+2. linux 环境可通过修改配置文件
+#vi /usr/lib/systemd/system/docker.service
+在ExecStart这一行后面加上（这里就写4个0，别改成自己的ip） 
+-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock
+ 
+改完后效果如下
+ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock
+ 
+:wq
+保存退出，
+ 
+重新加载配置文件#systemctl daemon-reload   ,
+启动docker #systemctl start docker
+```
+![image](../images/docker-tcp.png)
+
+-  No plugin found for prefix 'docker' in the current project and in the plugin groups
+```
+
+需要maven配置
+<pluginGroup>com.spotify</pluginGroup>
+
+
+```
+
+
 - RedisTemplate执行lua脚本抛出异常IllegalStateException
 ```
 参考文档描述https://cloud.tencent.com/developer/article/1526390

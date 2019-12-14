@@ -13,19 +13,13 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
-            <!--<exclusions>
-                <exclusion>
-                    <groupId>org.elasticsearch.client</groupId>
-                    <artifactId>transport</artifactId>
-                </exclusion>
-            </exclusions>-->
-        </dependency>
-        <dependency>
             <groupId>org.elasticsearch.client</groupId>
             <artifactId>elasticsearch-rest-high-level-client</artifactId>
         </dependency>
+       <!-- <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-client</artifactId>
+        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -34,9 +28,6 @@
             <groupId>com.spring4all</groupId>
             <artifactId>swagger-spring-boot-starter</artifactId>
         </dependency>
-
-
-
     </dependencies>
 
     <build>
@@ -47,5 +38,140 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>node1</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+                </dependency>
+            </dependencies>
+
+            <build>
+                <!--<finalName>${klaus.version}</finalName>-->
+                <plugins>
+                    <plugin>
+                        <groupId>com.github.ekryd.echo-maven-plugin</groupId>
+                        <artifactId>echo-maven-plugin</artifactId>
+                        <version>1.2.0</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>echo</goal>
+                                </goals>
+                                <configuration>
+                                    <message>Echo JAVA_HOME: ${env.JAVA_HOME}</message>
+                                    <message>Echo basedir: ${project.basedir}</message>
+                                    <message>Echo final jar: ${project.build.finalName}.jar</message>
+                                    <level>INFO</level>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!--docker镜像build插件-->
+                    <plugin>
+                        <groupId>com.spotify</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>1.2.0</version>
+                        <configuration>
+                            <!-- 注意imageName一定要是符合正则[a-z0-9-_.]的，否则构建不会成功 -->
+                            <imageName>${docker.prefix}/${project.artifactId}</imageName>
+                            <forceTags>true</forceTags>
+                            <imageTags>
+                                <imageTag>${project.version}</imageTag>
+                                <imageTag>latest</imageTag>
+                            </imageTags>
+                            <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+                            <rm>true</rm>
+                            <resources>
+                                <resource>
+                                    <targetPath>/</targetPath>
+                                    <directory>${project.build.directory}</directory>
+                                    <include>${project.build.finalName}.jar</include>
+                                    <!--<include>${project.artifactId}-${project.version}.jar</include>-->
+                                </resource>
+                            </resources>
+                        </configuration>
+
+                        <executions>
+                            <execution>
+                                <id>build-image</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                            </execution>
+                            <!--<execution>-->
+                            <!--<id>tag-image</id>-->
+                            <!--<phase>package</phase>-->
+                            <!--<goals>-->
+                            <!--<goal>tag</goal>-->
+                            <!--</goals>-->
+                            <!--<configuration>-->
+                            <!--<image>${docker.prefix}/${project.artifactId}</image>-->
+                            <!--<newName>docker.io/wanyang3/mavendemo:${project.version}</newName>-->
+                            <!--</configuration>-->
+                            <!--</execution>-->
+                            <!--<execution>
+                                <id>push-image</id>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>push</goal>
+                                </goals>
+                                <configuration>
+                                    <imageName>docker.io/wanyang3/mavendemo:${project.version}</imageName>
+                                </configuration>
+                            </execution>-->
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+
+        </profile>
+
+        <profile>
+            <id>node2</id>
+
+            <dependencies>
+                <dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+                </dependency>
+            </dependencies>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.github.ekryd.echo-maven-plugin</groupId>
+                        <artifactId>echo-maven-plugin</artifactId>
+                        <version>1.2.0</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>echo</goal>
+                                </goals>
+                                <configuration>
+                                    <message>build profile node2, final jar: ${project.build.finalName}.jar</message>
+                                    <level>INFO</level>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+
+        </profile>
+
+
+    </profiles>
+
+
 
 </project>

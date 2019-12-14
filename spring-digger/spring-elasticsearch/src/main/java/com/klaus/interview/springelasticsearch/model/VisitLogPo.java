@@ -2,6 +2,9 @@ package com.klaus.interview.springelasticsearch.model;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -9,8 +12,12 @@ import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.util.Date;
+import java.util.List;
 
-@Document(type = "visit-log", indexName = "spring-elastic-test", createIndex = true)
+@Document(type = "visit-log", indexName = "spring-elastic-test.visit-log", createIndex = true)
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class VisitLogPo {
 
     @Id
@@ -27,4 +34,6 @@ public class VisitLogPo {
     private String url;
     @Field(type = FieldType.Keyword)
     private String ip;
+    @Field(type = FieldType.Keyword, store = true)
+    private List<String> labels;
 }

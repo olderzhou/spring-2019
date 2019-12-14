@@ -1,36 +1,36 @@
 package com.klaus.interview.springelasticsearch.controller;
 
 import com.klaus.interview.springelasticsearch.model.SchoolPo;
-import com.klaus.interview.springelasticsearch.repository.EsRepo;
+import com.klaus.interview.springelasticsearch.repository.SchoolEsRepo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.admin.indices.settings.get.GetSettingsRequest;
 import org.elasticsearch.action.admin.indices.settings.get.GetSettingsResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
-import org.springframework.data.elasticsearch.core.query.GetQuery;
-import org.springframework.data.elasticsearch.core.query.IndexQuery;
-import org.springframework.data.elasticsearch.core.query.IndexQueryBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/index")
 @AllArgsConstructor
 @Api(tags = {"elastic-search-best-test"})
-public class TestController {
+@Slf4j
+public class IndexController {
 
     private ElasticsearchOperations elasticsearchOperations;
     private ElasticsearchTemplate elasticsearchTemplate;
-    private EsRepo esRepo;
+    private SchoolEsRepo schoolEsRepo;
     private RestHighLevelClient highLevelClient;
+    private static final String INDEX_PREFIX = "com.klaus.interview.springelasticsearch.model";
 
-    @GetMapping("/index")
+    @GetMapping
     @ApiOperation(value = "list index", notes = "show all indices")
     private ResponseEntity listIndex() throws IOException {
         GetSettingsRequest getSettingsRequest = new GetSettingsRequest();
@@ -39,42 +39,28 @@ public class TestController {
         return ResponseEntity.ok(getSettingsResponse.getIndexToSettings());
     }
 
-    @DeleteMapping("/index")
+    @DeleteMapping
     @ApiOperation(value = "delete index", notes = "delete indices")
-    private ResponseEntity deleteIndex() {
+    private ResponseEntity deleteIndex(String index) {
         elasticsearchTemplate.deleteIndex(SchoolPo.class);
         return ResponseEntity.ok(true);
     }
 
 
-    @PostMapping("/index")
+    @PostMapping
     @ApiOperation(value = "create index", notes = "create indices")
-    private ResponseEntity createIndex() {
-        elasticsearchTemplate.createIndex(SchoolPo.class);
-        elasticsearchTemplate.putMapping(SchoolPo.class);
+    private ResponseEntity createIndex(@RequestParam(name = "index") String index) {
+        try {
+            log.info("className is :{}", INDEX_PREFIX+"."+index);
+            Class className = Class.forName(INDEX_PREFIX+"."+index);
+            log.info("className === :{}", className);
+            elasticsearchTemplate.createIndex(className);
+            elasticsearchTemplate.putMapping(className);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
         return ResponseEntity.ok(elasticsearchTemplate.getSetting(SchoolPo.class));
     }
 
-    @PostMapping("/school")
-    @ApiOperation(value = "save data school", notes = "save data to es")
-    public String save(@RequestBody SchoolPo schoolPo) {
-
-        IndexQuery indexQuery = new IndexQueryBuilder()
-                .withId(schoolPo.getName())
-                .withObject(schoolPo)
-                .build();
-        String documentId = elasticsearchOperations.index(indexQuery);
-        return documentId;
-    }
-
-    @GetMapping("/school/{id}")
-    @ApiOperation(value = "get data school", notes = "get data from es by id")
-    public SchoolPo findById(@PathVariable("id")  Long  id) {
-        GetQuery getQuery = new GetQuery();
-        getQuery.setId(id.toString());
-        SchoolPo schoolPo = elasticsearchOperations
-                .queryForObject(getQuery, SchoolPo.class);
-        return schoolPo;
-    }
 }
