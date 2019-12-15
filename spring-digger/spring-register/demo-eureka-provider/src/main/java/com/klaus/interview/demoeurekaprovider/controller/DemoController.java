@@ -32,4 +32,15 @@ public class DemoController {
         log.info("fetch port is :{}", serverProperties.getPort());
         return "hello, "+name+" from "+ serverProperties.getPort();
     }
+
+
+
+    @GetMapping("/testbean")
+    public TestBean testBean(@RequestParam("name") String  name) {
+        TestBean testBean =  new TestBean();
+        testBean.setName(name);
+        log.info("fetch port is :{}, name is :{}", serverProperties.getPort(), name);
+        return testBean;
+
+    }
 }
