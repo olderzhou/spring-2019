@@ -14,7 +14,6 @@ import javax.persistence.EntityListeners;
 @Data
 @EntityListeners(value = CurrentAuditor.class)
 public class ClassNum extends JpaBasePo {
-
     private String name;
     private String count;
 

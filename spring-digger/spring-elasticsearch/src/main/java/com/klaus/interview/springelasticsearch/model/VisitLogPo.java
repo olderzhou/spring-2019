@@ -32,8 +32,11 @@ public class VisitLogPo {
     private String bizType;
     @Field(type = FieldType.Keyword)
     private String url;
-    @Field(type = FieldType.Keyword)
+    @Field(type = FieldType.Ip)
     private String ip;
     @Field(type = FieldType.Keyword, store = true)
     private List<String> labels;
+    @Field(type = FieldType.Text)
+    private String mark;
 }
+

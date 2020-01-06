@@ -8,7 +8,9 @@ import lombok.ToString;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 
-
+/**
+ * 学生
+ */
 @Entity
 @Data
 @ToString

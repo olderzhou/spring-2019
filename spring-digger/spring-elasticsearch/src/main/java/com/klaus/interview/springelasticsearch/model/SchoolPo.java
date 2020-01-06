@@ -20,7 +20,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(indexName = "spring-elastic-test.school", type = "school", createIndex = false)
+@Document(indexName = "spring-elastic.school-new", type = "school-new", createIndex = false)
 @ToString
 @ApiModel(value = "学校", description = "school entity description")
 public class SchoolPo {

@@ -14,6 +14,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class SchoolController {
     private SchoolEsRepo schoolEsRepo;
+
     @PostMapping("/school")
     @ApiOperation(value = "save data school", notes = "save data to es")
     public ResponseEntity save(@RequestBody SchoolPo schoolPo) {

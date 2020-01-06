@@ -49,6 +49,12 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.codehaus.sonar</groupId>
+            <artifactId>sonar-maven-plugin</artifactId>
+            <version>5.1</version>
+        </dependency>
+
     </dependencies>
 
 
@@ -57,6 +63,7 @@
         <module>spring-jpa-code-generatoor</module>
         <module>common</module>
         <module>base-model</module>
+        <module>base-spider</module>
         <module>school-spider</module>
         <module>spring-register</module>
         <module>spring-elasticsearch</module>
@@ -95,6 +102,11 @@
             <dependency>
                 <groupId>com.klaus.interview</groupId>
                 <artifactId>base-model</artifactId>
+                <version>${klaus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.klaus.interview</groupId>
+                <artifactId>base-spider</artifactId>
                 <version>${klaus.version}</version>
             </dependency>
 

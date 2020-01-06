@@ -1,6 +1,6 @@
 package com.interview.schoolspider.controller;
 
-import com.interview.schoolspider.spider.model.SchoolVo;
+import com.interview.schoolspider.spider.model.SchoolSpiderVo;
 import com.interview.schoolspider.spider.processor.SchoolSpider;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,16 +25,27 @@ public class SchoolSpiderController {
 
     @Autowired
     private SchoolSpider schoolSpider;
+    public static final String helpUrl = "http://xuexiao.pinwaiyi.com/hy/list.php?fid=%s";
 
+    public static final List<Integer> sheng = new ArrayList<>(34);
+    static {
+        for(int i=8;i<=34; i++) {
+            sheng.add(i);
+        }
+    }
     @GetMapping
     @ApiOperation(value = "test status", notes = "this is use to test service status")
     public ResponseEntity success() {
-        new Runnable() {
-            @Override
-            public void run() {
-                schoolSpider.run();
-            }
-        }.run();
+          sheng.stream().forEach(
+                  i -> {
+                    new Runnable() {
+                        @Override
+                        public void run() {
+                            schoolSpider.run(String.format(helpUrl, i));
+                        }
+                    }.run();
+                  }
+          );
         return ResponseEntity.ok("success");
     }
 
@@ -49,17 +60,17 @@ public class SchoolSpiderController {
         log.info("kafkaTemplate.metrics() is :{}", kafkaTemplate.metrics());
 //        kafkaTemplate.send("school-topic", message);
 
-        SchoolVo schoolVo = new SchoolVo();
-        schoolVo.setChuzhongzaixiaorenshu("111");
-        schoolVo.setDianhua("22");
-        schoolVo.setDiqu("33");
-        schoolVo.setTitle(message);
-//        kafkaTemplate.send("school-topic-1", schoolVo);
-//        kafkaTemplate.send("school-topic-2", schoolVo);
-//        kafkaTemplate.send("school-topic", schoolVo);
-//        kafkaTemplate.send("test-topic", schoolVo);
-//        kafkaTemplate.send("test-topic-1", schoolVo);
-//        kafkaTemplate.send("test-topic-a", schoolVo);
+        SchoolSpiderVo schoolSpiderVo = new SchoolSpiderVo();
+        schoolSpiderVo.setChuzhongzaixiaorenshu("111");
+        schoolSpiderVo.setDianhua("22");
+        schoolSpiderVo.setDiqu("33");
+        schoolSpiderVo.setTitle(message);
+//        kafkaTemplate.send("school-topic-1", schoolSpiderVo);
+//        kafkaTemplate.send("school-topic-2", schoolSpiderVo);
+//        kafkaTemplate.send("school-topic", schoolSpiderVo);
+//        kafkaTemplate.send("test-topic", schoolSpiderVo);
+//        kafkaTemplate.send("test-topic-1", schoolSpiderVo);
+//        kafkaTemplate.send("test-topic-a", schoolSpiderVo);
         return ResponseEntity.ok(true);
     }
 

@@ -16,6 +16,28 @@ spring:
       repositories:
         enabled: true
 #      properties:
+  # kafka config
+  kafka:
+    consumer:
+      bootstrap-servers: 192.168.43.235:9092
+      group-id: elastic-school-consumer-new
+      #key-deserializer: org.springframework.kafka.support.serializer.StringDeserializer
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      fetch-min-size: 20
+      fetch-max-wait: 600
+      max-poll-records: 100
+      auto-offset-reset: latest
+      auto-commit-interval: 10
+      enable-auto-commit: true
+      properties:
+        spring.json.trusted.packages: com.klaus.interview.basespider.model
+    listener:
+      type: batch
+      ack-mode: batch
+      ack-time: 60
+      poll-timeout: 3000
+      concurrency: 1
 
 swagger:
   enabled: true

@@ -17,7 +17,6 @@ import javax.persistence.EntityListeners;
 @ToString
 @EntityListeners(value = CurrentAuditor.class)
 public class College extends JpaBasePo {
-
     private String name;
     private String code;
 

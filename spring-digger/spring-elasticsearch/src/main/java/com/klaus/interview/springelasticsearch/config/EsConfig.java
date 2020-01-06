@@ -17,6 +17,9 @@ import java.util.stream.Collectors;
 //@Configuration
 public class EsConfig {
 
+
+
+
 //    @Value("${spring.data.elasticsearch.cluster-nodes}")
 //    private String nodes;
 
